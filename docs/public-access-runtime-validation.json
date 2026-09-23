@@ -1,0 +1,19 @@
+{
+  "homepage": 200,
+  "homepage_matches_local": true,
+  "assets": {
+    "/static/app.css": 200,
+    "/static/app.js": 200,
+    "/static/brand.svg": 200
+  },
+  "unauthenticated_me": 401,
+  "login": 200,
+  "secure_cookie": true,
+  "authenticated_me": 200,
+  "csrf_rejection": 403,
+  "chat_http": 200,
+  "stream_chunks": 5,
+  "stream_done": true,
+  "stream_error": false,
+  "logout": 200
+}

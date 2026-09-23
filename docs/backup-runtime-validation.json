@@ -1,0 +1,10 @@
+{
+  "account_authentication": true,
+  "visible_documents_equal": true,
+  "original_files_equal": true,
+  "conversation_content_equal": true,
+  "outsider_private_access_denied": true,
+  "live_database_replaced": false,
+  "backup": "data/backups/20260922T014702Z-949c7099",
+  "restore": "data/restore-rehearsal-20260922"
+}

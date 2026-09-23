@@ -1,0 +1,33 @@
+# Private loopback service. Runtime secret/cache paths are injected by start_search.py.
+use_default_settings:
+  engines:
+    keep_only:
+      - bing
+      - duckduckgo
+server:
+  bind_address: 127.0.0.1
+  port: 8888
+  limiter: false
+  public_instance: false
+  image_proxy: false
+search:
+  formats: [json]
+  safe_search: 1
+  default_lang: auto
+general:
+  debug: false
+  enable_metrics: false
+outgoing:
+  request_timeout: 7.0
+  max_request_timeout: 9.0
+engines:
+  - name: duckduckgo
+    disabled: false
+    enable_http3: false
+  - name: bing
+    disabled: false
+    base_url: https://www.bing.com
+    enable_http3: false
+
+# Disable optional plugins, including startup rule downloads.
+plugins: {}

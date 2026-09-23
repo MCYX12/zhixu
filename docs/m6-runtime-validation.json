@@ -1,0 +1,83 @@
+{
+  "tested_at": "2026-09-13T23:41:34.855937+00:00",
+  "scenario": "live-web-local-model",
+  "status": 200,
+  "elapsed_seconds": 11.54,
+  "public_query": "SearXNG 官方 文档 搜索服务",
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "根据检索到的官方文档信息，SearXNG 能聚合多达 **264** 个搜索服务 [2]。\n\n*注：此信息基于检索时的文档摘要，具体数量可能随版本更新而变化。*"
+        }
+      }
+    ],
+    "created": 1789342894,
+    "model": "web",
+    "system_fingerprint": "b9716-db52540f7",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 50,
+      "prompt_tokens": 1068,
+      "total_tokens": 1118,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "id": "chatcmpl-05aa99fc82044bffa1f2322c192e8b4e",
+    "timings": {
+      "cache_n": 0,
+      "prompt_n": 1068,
+      "prompt_ms": 5803.234,
+      "prompt_per_token_ms": 5.433739700374532,
+      "prompt_per_second": 184.0353154809887,
+      "predicted_n": 50,
+      "predicted_ms": 3078.815,
+      "predicted_per_token_ms": 61.5763,
+      "predicted_per_second": 16.240014421132805
+    },
+    "sources": [
+      {
+        "url": "https://github.com/searxng/searxng",
+        "title": "GitHub - searxng/searxng: SearXNG is a free internet metasearch …",
+        "published_at": null,
+        "retrieved_at": "2026-09-13T23:41:23.580113+00:00",
+        "kind": "web",
+        "coverage": "page",
+        "id": 1,
+        "web_id": "f3e8b5a6a7854d80b0a07c345463fea0",
+        "path": "GitHub - searxng/searxng: SearXNG is a free internet metasearch …"
+      },
+      {
+        "url": "https://docs.searxng.org/",
+        "title": "SearXNG Documentation (2026.9.13+96479fff6)",
+        "published_at": null,
+        "retrieved_at": "2026-09-13T23:41:23.580178+00:00",
+        "kind": "web",
+        "coverage": "page",
+        "id": 2,
+        "web_id": "a25a26c6cf2e484d9746847a7f5bd0c4",
+        "path": "SearXNG Documentation (2026.9.13+96479fff6)"
+      },
+      {
+        "url": "https://zhuanlan.zhihu.com/p/18143971299",
+        "title": "SearXNG搜索引擎介绍 - 知乎",
+        "published_at": null,
+        "retrieved_at": "2026-09-13T23:41:23.580216+00:00",
+        "kind": "web",
+        "coverage": "snippet",
+        "id": 3,
+        "web_id": "83eaa6bf942c489696dee2c724e1f4ce",
+        "path": "SearXNG搜索引擎介绍 - 知乎"
+      }
+    ]
+  },
+  "ready_after": {
+    "status": "ready",
+    "active": 0,
+    "waiting": 0
+  }
+}

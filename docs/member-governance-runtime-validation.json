@@ -1,0 +1,9 @@
+{
+  "isolated_database": true,
+  "cli_exit": 0,
+  "old_key_http": 401,
+  "new_key_http": 200,
+  "replacement_mode": "0o600",
+  "browser_member_save": "confirmed; disabled state and success toast observed",
+  "tests": 143
+}

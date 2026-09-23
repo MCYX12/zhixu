@@ -1,0 +1,14 @@
+# 接入准备模板；不启用推理，不发送网络请求。复制为 cloud.local.toml 后填写。
+provider = ""
+model = ""
+base_url = ""
+# 相对本配置目录；密钥独立保存为 0600 文件，不能把密钥直接写在这里。
+key_file = "../data/cloud-provider.key"
+allowed_users = ["owner"]
+context_scope = "current_question"
+max_output_tokens = 2048
+# 币种和价格必须一致；填写服务商价格及你选择的每日上限。
+currency = "CNY"
+daily_budget = 0
+input_price_per_million = 0
+output_price_per_million = 0

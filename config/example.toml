@@ -1,0 +1,33 @@
+[server]
+host = "127.0.0.1"
+port = 9000
+database = "data/state.sqlite3"
+max_concurrent = 2
+max_queue = 6
+queue_timeout = 30.0
+request_timeout = 180.0
+max_input_chars = 16000
+max_output_tokens = 2048
+token_budget_enabled = true
+
+[model]
+base_url = "http://127.0.0.1:8080/v1"
+name = "local-qwen"
+
+[policy]
+# Web requires explicit enablement, allowed users and WEB mode; cloud stays off.
+allow_web_search = false
+allow_cloud_inference = false
+allow_private_context_export = false
+
+[knowledge]
+root = "examples/knowledge"
+chunk_chars = 1800
+overlap_chars = 200
+max_file_bytes = 5242880
+top_k = 5
+max_context_chars = 7000
+
+[web]
+searxng_url = "http://127.0.0.1:8888"
+allowed_users = []

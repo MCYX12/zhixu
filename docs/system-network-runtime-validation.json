@@ -1,0 +1,87 @@
+{
+  "tested_at": "2026-09-14T04:40:04.624900+00:00",
+  "scenario": "system-proxy-search-and-local-model",
+  "network": {
+    "mode": "system",
+    "route": "proxy",
+    "label": "跟随系统代理"
+  },
+  "status": 200,
+  "elapsed_seconds": 13.37,
+  "response": {
+    "choices": [
+      {
+        "finish_reason": "stop",
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "SearXNG 是一个尊重隐私的开放元搜索引擎 [3]。"
+        }
+      }
+    ],
+    "created": 1789360804,
+    "model": "web",
+    "system_fingerprint": "b9716-db52540f7",
+    "object": "chat.completion",
+    "usage": {
+      "completion_tokens": 17,
+      "prompt_tokens": 1029,
+      "total_tokens": 1046,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "id": "chatcmpl-765c0b34436e4e0c855ab7f262302823",
+    "timings": {
+      "cache_n": 0,
+      "prompt_n": 1029,
+      "prompt_ms": 5603.448,
+      "prompt_per_token_ms": 5.445527696793003,
+      "prompt_per_second": 183.6369321175105,
+      "predicted_n": 17,
+      "predicted_ms": 1021.067,
+      "predicted_per_token_ms": 60.06276470588235,
+      "predicted_per_second": 16.64925024508676
+    },
+    "sources": [
+      {
+        "url": "https://github.com/searxng/searxng",
+        "title": "GitHub - searxng/searxng: SearXNG is a free internet metasearch …",
+        "published_at": null,
+        "retrieved_at": "2026-09-14T04:39:51.887152+00:00",
+        "kind": "web",
+        "coverage": "page",
+        "id": 1,
+        "web_id": "6be7e6b9c46f4708b62286a708c6d5ec",
+        "path": "GitHub - searxng/searxng: SearXNG is a free internet metasearch …"
+      },
+      {
+        "url": "https://docs.searxng.org/",
+        "title": "SearXNG Documentation (2026.9.13+230c3632d)",
+        "published_at": null,
+        "retrieved_at": "2026-09-14T04:39:51.887378+00:00",
+        "kind": "web",
+        "coverage": "page",
+        "id": 2,
+        "web_id": "f26a0cf2262a4f209bb048f8da1711d5",
+        "path": "SearXNG Documentation (2026.9.13+230c3632d)"
+      },
+      {
+        "url": "https://priv.au/",
+        "title": "SearXNG",
+        "published_at": null,
+        "retrieved_at": "2026-09-14T04:39:51.887425+00:00",
+        "kind": "web",
+        "coverage": "snippet",
+        "id": 3,
+        "web_id": "51f3d087cb024d47bb72f3e870aca3a4",
+        "path": "SearXNG"
+      }
+    ]
+  },
+  "ready_after": {
+    "status": "ready",
+    "active": 0,
+    "waiting": 0
+  }
+}

@@ -1,0 +1,9 @@
+# 正式命名隧道模板；须先在自己的 Cloudflare 账号创建隧道和 DNS。
+# 替换以下 UUID、绝对凭据路径和域名。不要提交隧道凭据。
+tunnel: REPLACE_WITH_TUNNEL_UUID
+credentials-file: /absolute/private/path/tunnel-credentials.json
+
+ingress:
+  - hostname: ai.example.com
+    service: http://127.0.0.1:9000
+  - service: http_status:404

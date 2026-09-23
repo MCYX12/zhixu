@@ -1,0 +1,100 @@
+{
+  "date": "2026-09-13",
+  "hardware": "Mac mini M4 32GB",
+  "backend": "llama.cpp b9716 db52540f7",
+  "model": {
+    "repository": "unsloth/Qwen3.5-9B-GGUF",
+    "revision": "3885219b6810b007914f3a7950a8d1b469d598a5",
+    "filename": "Qwen3.5-9B-Q4_K_M.gguf",
+    "size": 5680522464,
+    "sha256": "03b74727a860a56338e042c4420bb3f04b2fec5734175f4cb9fa853daf52b7e8",
+    "upstream_model": "Qwen/Qwen3.5-9B",
+    "quantization_publisher": "unsloth",
+    "verified_backend_candidate": "llama.cpp b9716 db52540f7"
+  },
+  "settings": {
+    "slots": 2,
+    "context_per_slot": 8192,
+    "prompt_cache_mib": 1024,
+    "context_checkpoints_per_slot": 8
+  },
+  "single_request_smoke": {
+    "kind": "two-request-smoke-not-p95",
+    "results": [
+      {
+        "mode": "local",
+        "first_content_seconds": 0.40643691702280194,
+        "total_seconds": 3.5511447079479694,
+        "output_characters": 90,
+        "completed": true,
+        "error": null,
+        "answer": "PID 控制是一种通过实时计算**比例**（当前误差）、**积分**（历史误差累积）和**微分**（误差变化趋势）三项来动态调整输出，从而使系统稳定并精确达到目标值的反馈控制算法。"
+      },
+      {
+        "mode": "knowledge",
+        "first_content_seconds": 1.6717882920056581,
+        "total_seconds": 3.320101208984852,
+        "output_characters": 40,
+        "completed": true,
+        "error": null,
+        "answer": "根据资料，实验记录编号为 **DEMO-PWM-20260913**。\n\n[1]"
+      }
+    ]
+  },
+  "concurrency_and_cancel": {
+    "two_concurrent_requests": [
+      {
+        "elapsed_seconds": 6.586723958957009,
+        "usage": {
+          "completion_tokens": 70,
+          "prompt_tokens": 24,
+          "total_tokens": 94,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 24,
+          "prompt_ms": 717.541,
+          "prompt_per_token_ms": 29.89754166666667,
+          "prompt_per_second": 33.44756606242709,
+          "predicted_n": 70,
+          "predicted_ms": 5837.823,
+          "predicted_per_token_ms": 83.39747142857144,
+          "predicted_per_second": 11.99077121728425
+        },
+        "finish_reason": "stop"
+      },
+      {
+        "elapsed_seconds": 6.259440457914025,
+        "usage": {
+          "completion_tokens": 65,
+          "prompt_tokens": 24,
+          "total_tokens": 89,
+          "prompt_tokens_details": {
+            "cached_tokens": 0
+          }
+        },
+        "timings": {
+          "cache_n": 0,
+          "prompt_n": 24,
+          "prompt_ms": 717.667,
+          "prompt_per_token_ms": 29.90279166666667,
+          "prompt_per_second": 33.44169371031411,
+          "predicted_n": 65,
+          "predicted_ms": 5518.669,
+          "predicted_per_token_ms": 84.90259999999999,
+          "predicted_per_second": 11.778202316536833
+        },
+        "finish_reason": "stop"
+      }
+    ],
+    "state_after_cancel": {
+      "status": "ready",
+      "active": 0,
+      "waiting": 0
+    },
+    "note": "Small smoke test, not sustained load or p95"
+  }
+}

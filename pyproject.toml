@@ -1,0 +1,27 @@
+[project]
+name = "local-first-ai"
+version = "0.3.1"
+description = "Enterprise pilot workspace with local knowledge, ACL and conversations"
+requires-python = ">=3.12,<3.15"
+dependencies = [
+    "curl-cffi==0.16.3",
+    "fastapi>=0.115,<1",
+    "httpx>=0.28,<1",
+    "pypdf>=6,<7",
+    "python-docx>=1.2,<2",
+    "uvicorn>=0.34,<1",
+]
+
+[dependency-groups]
+dev = ["pytest>=8,<10", "pytest-asyncio>=0.25,<2", "ruff>=0.11,<1"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]
