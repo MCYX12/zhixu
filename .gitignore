@@ -1,0 +1,18 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.env
+data/*
+!data/.gitkeep
+models/
+config/local.toml
+config/cloud.local.toml
+config/launcher.local.json
+*.log
+
+node_modules/
+
+# macOS
+.DS_Store
+**/.DS_Store

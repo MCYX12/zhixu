@@ -1,0 +1,39 @@
+[
+  {
+    "case": "short",
+    "input_chars": 13,
+    "status": 200,
+    "seconds": 5.679,
+    "prompt_tokens_header": "592",
+    "context_tokens_header": "8192",
+    "usage": {
+      "completion_tokens": 40,
+      "prompt_tokens": 592,
+      "total_tokens": 632,
+      "prompt_tokens_details": {
+        "cached_tokens": 0
+      }
+    },
+    "error": null
+  },
+  {
+    "case": "overflow",
+    "input_chars": 3000,
+    "status": 413,
+    "seconds": 0.03,
+    "prompt_tokens_header": null,
+    "context_tokens_header": null,
+    "usage": null,
+    "error": {
+      "code": "context_budget_exceeded",
+      "message": "当前内容（含历史和参考资料）占 12106 tokens，加上回答预留 80 和安全余量 32，超过模型单次容量 8192。请缩短问题、开启新对话，或减少回答长度后重试；本次未启动生成。"
+    }
+  },
+  {
+    "after": {
+      "status": "ready",
+      "active": 0,
+      "waiting": 0
+    }
+  }
+]

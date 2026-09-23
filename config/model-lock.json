@@ -1,0 +1,10 @@
+{
+  "repository": "unsloth/Qwen3.5-9B-GGUF",
+  "revision": "3885219b6810b007914f3a7950a8d1b469d598a5",
+  "filename": "Qwen3.5-9B-Q4_K_M.gguf",
+  "size": 5680522464,
+  "sha256": "03b74727a860a56338e042c4420bb3f04b2fec5734175f4cb9fa853daf52b7e8",
+  "upstream_model": "Qwen/Qwen3.5-9B",
+  "quantization_publisher": "unsloth",
+  "verified_backend_candidate": "llama.cpp b9716 db52540f7"
+}

@@ -1,0 +1,12 @@
+{
+  "launch_agent": "com.zhixu.workspace.backup",
+  "first_run": {
+    "last_attempt": 1790042124.990998,
+    "last_success": 1790042124.990998,
+    "state": "ok",
+    "snapshot": "auto-20260922T015524Z-9481d996"
+  },
+  "snapshot_verified": true,
+  "status_api_verified": true,
+  "long_term_schedule_verified": false
+}

@@ -1,0 +1,9 @@
+{
+  "local_home": 200,
+  "unknown_host": 400,
+  "public_plain_http": 400,
+  "public_home": 200,
+  "login": 200,
+  "secure_cookie": true,
+  "logout": 200
+}

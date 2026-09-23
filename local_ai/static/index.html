@@ -1,0 +1,665 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#173f35" />
+    <title>知序 · 企业知识工作台</title>
+    <script src="../static/open-workspace.js"></script>
+    <link rel="icon" href="/static/brand.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/static/app.css" />
+    <script defer src="/static/vendor/purify.min.js"></script>
+    <script defer src="/static/vendor/marked.umd.js"></script>
+    <script defer src="/static/app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">跳至主内容</a>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <a class="brand" href="#workbench" aria-label="知序首页"
+          ><img src="/static/brand.svg" alt="" width="34" height="34" /><span
+            >知序<small>ZHIXU WORKSPACE</small></span
+          ></a
+        >
+        <div class="workspace-select">
+          <span class="workspace-avatar">企</span>
+          <div>
+            <strong>企业工作空间</strong><small>本地部署 · 团队版</small>
+          </div>
+          <i data-icon="chevron"></i>
+        </div>
+        <button class="new-chat" id="new-chat">
+          <i data-icon="plus"></i>开启新对话<kbd>⌘ K</kbd>
+        </button>
+        <div class="nav-caption">工作空间</div>
+        <nav aria-label="主导航">
+          <button data-view="workbench" class="nav-item active">
+            <i data-icon="sparkles"></i>AI 工作台<span class="nav-dot"></span>
+          </button>
+          <button data-view="knowledge" class="nav-item">
+            <i data-icon="library"></i>文档知识库<span
+              class="nav-count"
+              id="nav-doc-count"
+              >—</span
+            >
+          </button>
+          <button data-view="history" class="nav-item">
+            <i data-icon="history"></i>历史会话
+          </button>
+        </nav>
+        <div class="recent-heading">
+          <span class="nav-caption">最近会话</span
+          ><button
+            class="icon-button quiet"
+            id="all-history"
+            aria-label="查看所有会话"
+          >
+            <i data-icon="arrow-up-right"></i>
+          </button>
+        </div>
+        <div class="recent-chats" id="recent-chats">
+          <p class="sidebar-empty">连接后，继续你的工作</p>
+        </div>
+        <div class="sidebar-bottom">
+          <div class="privacy-card">
+            <span class="privacy-icon"><i data-icon="shield"></i></span>
+            <div>
+              <strong>知识留在企业内部</strong>
+              <p>文档与会话保存在本机</p>
+            </div>
+            <span class="online-dot"></span>
+          </div>
+          <button data-view="status" class="nav-item">
+            <i data-icon="settings"></i>系统状态<span class="tiny-tag"
+              >本地</span
+            >
+          </button>
+          <button class="profile" id="profile">
+            <span class="avatar" id="user-avatar">访</span
+            ><span
+              ><strong id="user-name">连接工作空间</strong
+              ><small id="user-role">使用你的访问密钥</small></span
+            ><i data-icon="log-in" id="profile-icon"></i>
+          </button>
+        </div>
+      </aside>
+      <div class="main-shell">
+        <header class="topbar">
+          <div class="breadcrumb">
+            <button
+              class="icon-button mobile-menu"
+              id="mobile-menu"
+              aria-label="展开导航"
+            >
+              <i data-icon="menu"></i></button
+            ><span>工作空间</span><i data-icon="chevron-right"></i
+            ><strong id="page-name">AI 工作台</strong>
+          </div>
+          <div class="topbar-actions">
+            <span class="local-badge"
+              ><span class="online-dot"></span>本地私有部署</span
+            ><button class="icon-button" id="help-button" aria-label="使用指南">
+              <i data-icon="help"></i>
+            </button>
+            <div class="top-avatar" id="top-avatar">Z</div>
+          </div>
+        </header>
+        <main id="main">
+          <section id="view-workbench" class="view active">
+            <div class="workbench-grid">
+              <div class="workbench-main">
+                <div id="welcome">
+                  <div class="eyebrow">
+                    <span class="eyebrow-line"></span> YOUR KNOWLEDGE, CONNECTED
+                  </div>
+                  <h1>
+                    让知识有序，<br /><span>让工作更进一步。</span
+                    ><span class="heading-spark" aria-hidden="true">✳</span>
+                  </h1>
+                  <p class="hero-description">
+                    从一份文档到一个答案，让企业知识成为每一天的助力。
+                  </p>
+                </div>
+                <div
+                  class="conversation-heading"
+                  id="conversation-heading"
+                  hidden
+                >
+                  <div>
+                    <span class="eyebrow">YOUR CONVERSATION</span>
+                    <h2 id="conversation-title">新的对话</h2>
+                  </div>
+                  <button
+                    class="icon-button"
+                    id="export-chat"
+                    aria-label="导出会话"
+                  >
+                    <i data-icon="download"></i>
+                  </button>
+                </div>
+                <div
+                  id="messages"
+                  class="messages"
+                  aria-live="polite"
+                  aria-relevant="additions text"
+                ></div>
+                <form class="composer" id="chat-form">
+                  <div class="composer-top">
+                    <span><i data-icon="sparkles"></i>知序 AI</span
+                    ><span class="model-label"
+                      >Qwen3.5 · 9B<span
+                        class="online-dot"
+                        id="model-dot"
+                      ></span
+                    ></span>
+                  </div>
+                  <label class="sr-only" for="question">向知序提问</label
+                  ><textarea
+                    id="question"
+                    maxlength="12000"
+                    rows="3"
+                    placeholder="向企业知识提问，或一起梳理一个新想法…"
+                  ></textarea>
+                  <div class="composer-bottom">
+                    <div class="composer-tools">
+                      <button
+                        type="button"
+                        class="icon-button"
+                        id="attach-button"
+                        aria-label="上传知识文档"
+                      >
+                        <i data-icon="paperclip"></i>
+                      </button>
+                      <div class="divider"></div>
+                      <i data-icon="layers"></i
+                      ><label for="mode" class="sr-only">回答方式</label
+                      ><select id="mode">
+                        <option value="auto">智能模式 · 本地</option>
+                        <option value="knowledge">知识库问答</option>
+                        <option value="local">本地对话</option>
+                        <option value="web" id="web-mode-option" disabled>
+                          联网搜索
+                        </option>
+                      </select>
+                    </div>
+                    <button
+                      type="submit"
+                      class="send-button"
+                      id="send-button"
+                      aria-label="发送问题"
+                    >
+                      <span>发送</span><i data-icon="arrow-up"></i></button
+                    ><button
+                      type="button"
+                      class="send-button"
+                      id="stop-button"
+                      hidden
+                    >
+                      <i data-icon="stop"></i>停止
+                    </button>
+                  </div>
+                  <div id="web-query-panel" class="web-query-panel" hidden>
+                    <p>
+                      联网已开启：发送后将使用当前问题搜索公开网页，不发送历史对话或知识库资料。
+                    </p>
+                  </div>
+                </form>
+                <div class="composer-footnote">
+                  <span id="chat-state"
+                    ><i data-icon="lock"></i>仅在本机处理 ·
+                    不向外部发送内容</span
+                  ><span>Enter 发送 · Shift + Enter 换行</span>
+                </div>
+                <div id="starter-section">
+                  <div class="section-label">
+                    从这里开始<span>为你的日常工作，提供一点灵感</span>
+                  </div>
+                  <div class="starter-grid">
+                    <button
+                      class="starter-card"
+                      data-prompt="请根据知识库中的资料，梳理关键要点，并列出对应来源。"
+                      data-mode="knowledge"
+                    >
+                      <span class="starter-icon sage"
+                        ><i data-icon="file-search"></i></span
+                      ><strong
+                        >从资料中找答案<i
+                          data-icon="arrow-up-right"
+                        ></i></strong
+                      ><small>检索内部知识，回答有据可查</small>
+                    </button>
+                    <button
+                      class="starter-card"
+                      data-prompt="请帮我将下面的工作记录整理为一份清晰的周报，包含进展、问题和下周计划。\n\n"
+                      data-mode="local"
+                    >
+                      <span class="starter-icon sand"
+                        ><i data-icon="pen"></i></span
+                      ><strong
+                        >把想法写得更清楚<i
+                          data-icon="arrow-up-right"
+                        ></i></strong
+                      ><small>整理思路，起草报告与工作计划</small>
+                    </button>
+                    <button
+                      class="starter-card"
+                      data-prompt="请帮我拆解下面的问题，列出需要确认的信息和可执行的下一步。\n\n"
+                      data-mode="local"
+                    >
+                      <span class="starter-icon lilac"
+                        ><i data-icon="compass"></i></span
+                      ><strong
+                        >一起拆解复杂问题<i
+                          data-icon="arrow-up-right"
+                        ></i></strong
+                      ><small>建立分析框架，找到行动方向</small>
+                    </button>
+                  </div>
+                  <div class="section-label recent-doc-label">
+                    最近更新的知识<button
+                      class="text-button"
+                      data-view="knowledge"
+                    >
+                      查看知识库<i data-icon="arrow-right"></i>
+                    </button>
+                  </div>
+                  <div id="home-documents" class="home-documents">
+                    <div class="empty-inline">
+                      <i data-icon="file"></i
+                      ><span>连接工作空间，查看你的知识文档</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <aside class="context-rail">
+                <div class="rail-header">
+                  <span><i data-icon="panels"></i>工作空间概览</span
+                  ><span class="live-label">概览</span>
+                </div>
+                <div class="overview-stats">
+                  <div>
+                    <span>可访问文档</span
+                    ><strong id="stat-docs">—<small>份</small></strong>
+                  </div>
+                  <div>
+                    <span>我的会话</span
+                    ><strong id="stat-chats">—<small>次</small></strong>
+                  </div>
+                </div>
+                <div class="knowledge-map" aria-hidden="true">
+                  <div class="map-orbit orbit-one"></div>
+                  <div class="map-orbit orbit-two"></div>
+                  <div class="map-core">
+                    <img src="/static/brand.svg" alt="" width="40" />
+                  </div>
+                  <span class="map-node node-one"><i data-icon="file"></i></span
+                  ><span class="map-node node-two"
+                    ><i data-icon="library"></i></span
+                  ><span class="map-node node-three"
+                    ><i data-icon="message"></i
+                  ></span>
+                  <div class="map-label">连接知识与灵感</div>
+                </div>
+                <div class="rail-divider"></div>
+                <div id="source-rail">
+                  <h3>每个答案，都有来处</h3>
+                  <p>
+                    使用知识库问答或联网搜索时，参考来源会展示在这里，方便随时核对。
+                  </p>
+                  <div class="source-placeholder">
+                    <i data-icon="quote"></i><span>提问后查看参考来源</span>
+                  </div>
+                </div>
+                <div class="rail-note">
+                  <span class="note-eyebrow">LOCAL FIRST</span>
+                  <h3>你的知识，你来掌握。</h3>
+                  <p>直接上传本机文档，<br />构建属于团队的知识积累。</p>
+                  <button class="text-button" id="rail-upload">
+                    添加第一份知识<i data-icon="arrow-right"></i>
+                  </button>
+                </div>
+              </aside>
+            </div>
+          </section>
+          <section id="view-knowledge" class="view" hidden>
+            <div class="page-heading">
+              <div>
+                <span class="eyebrow">KNOWLEDGE LIBRARY</span>
+                <h1>让团队的知识，持续积累。</h1>
+                <p>上传、整理与分享文档，让答案有迹可循。</p>
+              </div>
+              <button class="primary-button" id="upload-button">
+                <i data-icon="plus"></i>上传文档
+              </button>
+            </div>
+            <div class="library-metrics" id="library-metrics"></div>
+            <div class="library-panel">
+              <div class="library-toolbar">
+                <div class="filter-tabs" role="group" aria-label="文档范围">
+                  <button class="active" data-filter="all">全部文档</button
+                  ><button data-filter="private">我的私有</button
+                  ><button data-filter="group">团队共享</button
+                  ><button data-filter="public">全员可见</button>
+                </div>
+                <div class="search-field">
+                  <i data-icon="search"></i
+                  ><input
+                    id="document-search"
+                    aria-label="搜索文档"
+                    placeholder="搜索文档名称…"
+                  />
+                </div>
+              </div>
+              <div class="document-table-wrapper">
+                <table class="document-table">
+                  <thead>
+                    <tr>
+                      <th>文档名称</th>
+                      <th>访问范围</th>
+                      <th>知识片段</th>
+                      <th>更新时间</th>
+                      <th>操作</th>
+                    </tr>
+                  </thead>
+                  <tbody id="document-rows"></tbody>
+                </table>
+              </div>
+              <div id="document-empty" class="large-empty" hidden>
+                <span class="empty-icon"><i data-icon="library"></i></span>
+                <h3>为知识库添上第一份资料</h3>
+                <p>从团队手册、项目文档或工作笔记开始。</p>
+                <button class="secondary-button" id="empty-upload">
+                  <i data-icon="upload"></i>上传本机文档
+                </button>
+              </div>
+              <div class="table-footer">
+                <span id="document-count">—</span
+                ><span><i data-icon="shield"></i>权限在检索前生效</span>
+              </div>
+            </div>
+          </section>
+          <section id="view-history" class="view" hidden>
+            <div class="page-heading">
+              <div>
+                <span class="eyebrow">CONVERSATIONS</span>
+                <h1>好思路，值得继续。</h1>
+                <p>你的对话仅自己可见，随时回来接着聊。</p>
+              </div>
+              <button class="primary-button" id="history-new">
+                <i data-icon="plus"></i>新对话
+              </button>
+            </div>
+            <div class="search-field history-search">
+              <i data-icon="search"></i
+              ><input
+                id="history-search"
+                aria-label="搜索会话"
+                placeholder="查找历史会话…"
+              />
+            </div>
+            <div id="history-list" class="history-list"></div>
+          </section>
+          <section id="view-status" class="view" hidden>
+            <div class="page-heading">
+              <div>
+                <span class="eyebrow">SYSTEM OVERVIEW</span>
+                <h1>安心工作的背后。</h1>
+                <p>查看本地服务、资源队列与文档操作记录。</p>
+              </div>
+              <button class="secondary-button" id="refresh-status">
+                <i data-icon="refresh"></i>刷新状态
+              </button>
+            </div>
+            <div id="status-cards" class="status-cards"></div>
+            <div class="status-grid">
+              <div class="surface">
+                <div class="section-label">数据与服务边界</div>
+                <div class="policy-row">
+                  <span>推理与文档存储</span><strong>本机</strong>
+                </div>
+                <div class="policy-row">
+                  <span>互联网搜索</span
+                  ><span id="web-policy-status" class="badge neutral"
+                    >连接后查看</span
+                  >
+                </div>
+                <div class="policy-row">
+                  <span>搜索网络</span
+                  ><strong id="web-network-status">跟随系统设置</strong>
+                </div>
+                <div class="policy-row">
+                  <span>云端模型</span><span class="badge neutral">未启用</span>
+                </div>
+                <div class="policy-row">
+                  <span>知识检索</span><strong>关键词检索</strong>
+                </div>
+                <div class="policy-row">
+                  <span>生成长度检查</span
+                  ><strong id="token-budget-status">连接后查看</strong>
+                </div>
+                <div class="policy-row">
+                  <span>最近自动备份</span
+                  ><strong id="backup-status">连接后查看</strong>
+                </div>
+                <div class="policy-row">
+                  <span>当前版本</span><strong>0.3 · 企业试点版</strong>
+                </div>
+                <p class="subtle">
+                  当前为单机试点环境，适合小团队验证业务流程。
+                </p>
+              </div>
+              <div class="surface">
+                <div class="section-label">
+                  最近操作<span>仅记录操作，不记录正文</span>
+                </div>
+                <div id="audit-list" class="audit-list"></div>
+              </div>
+            </div>
+            <div class="surface" id="members-panel" hidden>
+              <div class="section-label">团队成员<span>管理员专用</span></div>
+              <p class="subtle">
+                管理现有账号的角色、所属组与启用状态。修改后该成员需要重新登录；组调整会改变共享资料访问权限。新增账号仍由本机管理员配置。
+              </p>
+              <div id="members-list"></div>
+            </div>
+          </section>
+        </main>
+        <footer class="app-footer">
+          <span
+            >知序 ZHIXU<span class="footer-sep">/</span>让知识成为生产力</span
+          ><span><span class="online-dot"></span>LOCAL FIRST</span>
+        </footer>
+      </div>
+    </div>
+    <dialog
+      id="member-confirm-dialog"
+      class="modal"
+      aria-labelledby="member-confirm-title"
+    >
+      <form id="member-confirm-form">
+        <h2 id="member-confirm-title">确认成员权限变更</h2>
+        <p id="member-confirm-detail" class="subtle"></p>
+        <p class="form-note">
+          保存后，该成员现有网页登录会话会失效，后续访问按新权限检查。
+        </p>
+        <div class="modal-actions">
+          <button
+            type="button"
+            id="member-confirm-cancel"
+            class="secondary-button"
+          >
+            取消
+          </button>
+          <button type="submit" class="primary-button">确认保存</button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="login-dialog" class="modal">
+      <form id="login-form">
+        <div class="modal-top">
+          <img src="/static/brand.svg" width="36" alt="" /><button
+            type="button"
+            class="icon-button"
+            data-close="login-dialog"
+            aria-label="关闭登录"
+          >
+            <i data-icon="x"></i>
+          </button>
+        </div>
+        <span class="eyebrow">WELCOME TO ZHIXU</span>
+        <h2>连接你的工作空间</h2>
+        <p class="subtle">使用管理员分配的访问密钥，进入你的知识与对话。</p>
+        <label for="api-key">访问密钥</label
+        ><input
+          id="api-key"
+          type="password"
+          autocomplete="off"
+          placeholder="lai_…"
+          required
+        />
+        <div class="form-note">
+          <i data-icon="lock"></i>密钥不保存在浏览器中，登录会话 8 小时后失效。
+        </div>
+        <p id="login-error" class="form-error" role="alert"></p>
+        <button class="primary-button full" id="login-submit" type="submit">
+          进入工作空间<i data-icon="arrow-right"></i>
+        </button>
+      </form>
+    </dialog>
+    <dialog id="upload-dialog" class="modal wide">
+      <form id="upload-form">
+        <div class="modal-top">
+          <span class="eyebrow">ADD KNOWLEDGE</span
+          ><button
+            type="button"
+            class="icon-button"
+            data-close="upload-dialog"
+            aria-label="关闭上传"
+          >
+            <i data-icon="x"></i>
+          </button>
+        </div>
+        <h2>把知识带进工作空间</h2>
+        <p class="subtle">文档在本机解析，上传完成后即可用于问答。</p>
+        <label class="dropzone" id="dropzone" for="upload-files"
+          ><span class="empty-icon"><i data-icon="upload"></i></span
+          ><strong>点击选择，或将文件拖到这里</strong
+          ><span>PDF、DOCX、Markdown、TXT 与代码 · 单文件 ≤ 5 MB</span
+          ><input
+            id="upload-files"
+            type="file"
+            multiple
+            accept=".pdf,.docx,.md,.txt,.py,.c,.h,.cpp,.hpp,.rs,.yaml,.yml"
+        /></label>
+        <div id="upload-file-list" class="upload-file-list"></div>
+        <label for="upload-visibility">谁可以使用这些知识？</label
+        ><select id="upload-visibility">
+          <option value="private">仅自己 · 私有文档</option>
+          <option value="group">所属团队 · 组内共享</option>
+          <option value="public">工作空间全员 · 管理员发布</option>
+        </select>
+        <div id="upload-group-field" hidden>
+          <label for="upload-group">选择团队</label
+          ><select id="upload-group"></select>
+        </div>
+        <p class="form-note">PDF 需包含可提取的文字；扫描件请先完成 OCR。</p>
+        <p id="upload-error" class="form-error" role="alert"></p>
+        <div class="modal-actions">
+          <button
+            type="button"
+            class="secondary-button"
+            data-close="upload-dialog"
+          >
+            取消</button
+          ><button type="submit" class="primary-button" id="upload-submit">
+            <i data-icon="upload"></i>上传并建立索引
+          </button>
+        </div>
+      </form>
+    </dialog>
+    <dialog id="preview-dialog" class="modal document-modal">
+      <div class="modal-top">
+        <span class="eyebrow">KNOWLEDGE SOURCE</span
+        ><button
+          class="icon-button"
+          data-close="preview-dialog"
+          aria-label="关闭文档预览"
+        >
+          <i data-icon="x"></i>
+        </button>
+      </div>
+      <h2 id="preview-title">文档预览</h2>
+      <div id="preview-meta" class="preview-meta"></div>
+      <div id="preview-content" class="preview-content"></div>
+      <div class="modal-actions" id="preview-actions"></div>
+    </dialog>
+    <dialog id="access-dialog" class="modal">
+      <form id="access-form">
+        <div class="modal-top">
+          <h2>文档访问范围</h2>
+          <button
+            type="button"
+            class="icon-button"
+            data-close="access-dialog"
+            aria-label="关闭权限设置"
+          >
+            <i data-icon="x"></i>
+          </button>
+        </div>
+        <p id="access-name" class="subtle"></p>
+        <label for="access-visibility">可见范围</label
+        ><select id="access-visibility">
+          <option value="private">仅自己</option>
+          <option value="group">所属团队</option>
+          <option value="public">工作空间全员</option></select
+        ><label for="access-group">团队（仅组内共享时使用）</label
+        ><select id="access-group"></select>
+        <p class="form-note">
+          收回权限后，其他用户无法再检索或打开该文档。此前已生成的会话不会被撤回。
+        </p>
+        <p id="access-error" class="form-error"></p>
+        <button class="primary-button full" type="submit">保存访问范围</button>
+      </form>
+    </dialog>
+    <dialog id="confirm-dialog" class="modal">
+      <h2 id="confirm-title">确认操作</h2>
+      <p id="confirm-text" class="subtle"></p>
+      <div class="modal-actions">
+        <button class="secondary-button" id="confirm-cancel">取消</button
+        ><button class="danger-button" id="confirm-ok">确认删除</button>
+      </div>
+    </dialog>
+    <dialog id="help-dialog" class="modal">
+      <div class="modal-top">
+        <span class="eyebrow">GETTING STARTED</span
+        ><button
+          class="icon-button"
+          data-close="help-dialog"
+          aria-label="关闭使用指南"
+        >
+          <i data-icon="x"></i>
+        </button>
+      </div>
+      <h2>三步，开启知识工作。</h2>
+      <ol class="guide-list">
+        <li>
+          <strong>连接工作空间</strong>
+          <p>向管理员获取访问密钥，登录后会话按账号保存。</p>
+        </li>
+        <li>
+          <strong>上传本机资料</strong>
+          <p>在文档知识库添加资料，并选择合适的可见范围。</p>
+        </li>
+        <li>
+          <strong>提问并核对来源</strong>
+          <p>选择知识库问答，从回答右侧打开引用，查看原文。</p>
+        </li>
+      </ol>
+      <p class="form-note">
+        默认在本机处理，不需要
+        NAS。选择联网搜索后，当前输入的问题将用于公开搜索，无需重复填写；历史对话和知识库资料不会发送。云端模型未启用。
+      </p>
+    </dialog>
+    <div id="toast" role="status" class="toast" hidden></div>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "last_attempt": 1790042783.544637,
+  "last_success": 1790042783.544637,
+  "state": "ok",
+  "snapshot": "auto-20260922T020623Z-6fe2f9b7",
+  "cleanup": {
+    "deleted_count": 1,
+    "skipped_count": 0,
+    "failed_count": 0
+  }
+}

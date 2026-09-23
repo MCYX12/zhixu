@@ -1,0 +1,16 @@
+{
+  "name": "zhixu-workspace-ui",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Locally served UI dependencies; no CDN requests at runtime",
+  "scripts": {
+    "vendor": "node scripts/vendor-ui.mjs"
+  },
+  "dependencies": {
+    "dompurify": "3.4.15",
+    "marked": "18.0.13"
+  },
+  "devDependencies": {
+    "prettier": "3.9.6"
+  }
+}
