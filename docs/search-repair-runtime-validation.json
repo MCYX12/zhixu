@@ -1,0 +1,20 @@
+{
+  "query": "请帮我搜索 GitHub 上最近一周最热门的机器人相关仓库。",
+  "sources": [
+    {
+      "url": "https://repositorystats.com/trending/topic/robotics",
+      "title": "Repositories Trending on Github for the robotics topic - RepositoryStats",
+      "published_at": null,
+      "retrieved_at": "2026-09-27T02:10:40.131321+00:00",
+      "kind": "web",
+      "coverage": "snippet",
+      "id": 1,
+      "web_id": "149186de6ac146dfbf60fd94514e7319",
+      "path": "Repositories Trending on Github for the robotics topic - RepositoryStats"
+    }
+  ],
+  "http_status": 200,
+  "done": true,
+  "seconds": 15.5,
+  "answer": "基于提供的证据，无法列出 GitHub 上最近一周最热门的机器人相关仓库的具体排名。\n\n**原因如下：**\n提供的证据 [1] 仅展示了 `repositorystats.com` 网站上关于“机器人”话题热门仓库的**搜索摘要（snippet）**，并未包含该页面正文中的实际数据、具体仓库名称或排名列表。根据指令要求，仅凭搜索摘要无法声称已读取完整网页，因此无法核实具体的排名信息。"
+}

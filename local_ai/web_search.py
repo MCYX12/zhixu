@@ -43,6 +43,15 @@ def relevant_result(query, title, snippet):
     return not terms or sum(term in text for term in terms) / len(terms) >= 0.6
 
 
+def topic_matches(query, result):
+    """Preserve robotics intent across rewrites; general coding-agent charts do not qualify."""
+    if re.search(r"机器人|robotics|\brobots?\b", query, re.I):
+        return bool(
+            re.search(r"机器人|robotics|\brobots?\b", result["title"] + " " + result["text"], re.I)
+        )
+    return True
+
+
 def public_url(value):
     if not isinstance(value, str) or len(value) > 2048 or any(ord(c) < 33 for c in value):
         raise WebError("Invalid public URL")
@@ -255,7 +264,7 @@ class WebSearch:
             return False
 
     async def search(self, query):
-        results = await self._search(query)
+        results = [r for r in await self._search(query) if topic_matches(query, r)]
         if results:
             return results
         # Retry an empty retrieval once, using only the explicitly public question.
@@ -265,7 +274,7 @@ class WebSearch:
         if planner:
             alternative = await planner(self.settings, query)
             if alternative and search_terms(alternative) != search_terms(query):
-                return await self._search(alternative)
+                return [r for r in await self._search(alternative) if topic_matches(query, r)]
         return []
 
     async def _search(self, query):
@@ -326,8 +335,8 @@ class WebSearch:
                     )
                     if len(selected) == 3:
                         break
-                if not selected and payload.get("unresponsive_engines"):
-                    raise WebError("Search engines unavailable")
+                if not payload["results"] and payload.get("unresponsive_engines"):
+                    raise WebError("搜索引擎暂时受限或连接失败，可能需要验证码；请稍后重试。")
 
                 async def enrich(item):
                     try:
@@ -348,6 +357,8 @@ class WebSearch:
 
                 results = await asyncio.gather(*(enrich(item) for item in selected))
                 return [r for r in results if r["text"].strip()]
+        except WebError:
+            raise
         except NetworkPolicyError as error:
             raise WebError(str(error)) from error
         except (httpx.HTTPError, OSError, TimeoutError, ValueError) as error:

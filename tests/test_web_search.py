@@ -523,3 +523,52 @@ async def test_rewrite_does_not_loop(tmp_path):
         planner=planner,
     ).search("empty")
     assert result == [] and len(calls) == 2
+
+
+async def test_partial_engine_failure_does_not_block_rewrite(tmp_path):
+    calls = []
+
+    async def planner(settings, query):
+        return "robotics"
+
+    def handler(request):
+        calls.append(request)
+        item = (
+            {"title": "Unrelated", "url": "https://example.com", "content": "unrelated"}
+            if len(calls) == 1
+            else {
+                "title": "robotics",
+                "url": "https://example.com/robots",
+                "content": "robotics research",
+            }
+        )
+        return response(
+            json.dumps(
+                {"results": [item], "unresponsive_engines": [["duckduckgo", "CAPTCHA"]]}
+            ).encode()
+        )
+
+    result = await WebSearch(
+        Settings(tmp_path / "db", tmp_path),
+        httpx.MockTransport(handler),
+        SnippetOnly(),
+        planner=planner,
+    ).search("original query")
+    assert len(calls) == 2 and len(result) == 1
+
+
+async def test_unavailable_engine_distinct_from_empty_results(tmp_path):
+    backend = httpx.MockTransport(
+        lambda r: response(b'{"results":[],"unresponsive_engines":[["duckduckgo","CAPTCHA"]]}')
+    )
+    with pytest.raises(WebError, match="验证码"):
+        await WebSearch(Settings(tmp_path / "db", tmp_path), backend, SnippetOnly()).search(
+            "question"
+        )
+
+
+def test_robotics_intent_not_replaced_by_general_agent_rankings():
+    from local_ai.web_search import topic_matches
+    query='GitHub最近一周机器人仓库'
+    assert not topic_matches(query,{'title':'GitHub Weekly Trending','text':'code review and coding agents'})
+    assert topic_matches(query,{'title':'Robotics repositories','text':'robot arms'})

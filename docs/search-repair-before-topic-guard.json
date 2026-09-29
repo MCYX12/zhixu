@@ -1,0 +1,46 @@
+{
+  "query": "请帮我搜索 GitHub 上最近一周最热门的机器人相关仓库。",
+  "origin": "https://zhixingmoyun.com",
+  "sources": [
+    {
+      "url": "https://repositorystats.com/trending/topic/robotics",
+      "title": "Repositories Trending on Github for the robotics topic - RepositoryStats",
+      "published_at": null,
+      "retrieved_at": "2026-09-27T02:08:59.880807+00:00",
+      "kind": "web",
+      "coverage": "snippet",
+      "id": 1,
+      "web_id": "8d8b952e81324a04a549f84a5d1ae363",
+      "path": "Repositories Trending on Github for the robotics topic - RepositoryStats"
+    },
+    {
+      "url": "https://trending.magikaru.com/",
+      "title": "GitHub Trending — Daily, Weekly & Monthly Top Repos",
+      "published_at": null,
+      "retrieved_at": "2026-09-27T02:08:59.881252+00:00",
+      "kind": "web",
+      "coverage": "page",
+      "id": 2,
+      "web_id": "6db18ec2ba9b44449260ffae695b9c06",
+      "path": "GitHub Trending — Daily, Weekly & Monthly Top Repos"
+    },
+    {
+      "url": "https://wangchujiang.com/github-rank/trending-weekly.html",
+      "title": "GitHub Repositories Trending - Wang Chujiang",
+      "published_at": null,
+      "retrieved_at": "2026-09-27T02:08:59.881438+00:00",
+      "kind": "web",
+      "coverage": "page",
+      "id": 3,
+      "web_id": "a06febb73f2a46428e51728a8762ecbd",
+      "path": "GitHub Repositories Trending - Wang Chujiang"
+    }
+  ],
+  "frontend_updated": true,
+  "http_status": 200,
+  "done": true,
+  "seconds": 36.14,
+  "answer": "根据提供的资料，GitHub 上最近一周（2026年9月数据）最热门的**机器人（Robotics）**相关仓库主要集中在**AI代理（AI Agents）**、**代码审查**和**自动化技能**领域，具体要点如下：\n\n1.  **Alibaba/open-code-review**：以39.3k周新增星标位居榜首，这是一个混合架构的代码审查工具，结合了确定性管道与大语言模型（LLM Agent），专为Alibaba大规模场景设计，支持多种语言的安全规则检查 [3]。\n2.  **anthropics/claude-code**：新增2731个星标，这是一个终端内的代理编程工具，能理解代码库并通过自然语言命令执行常规任务、解释代码及处理Git工作流 [3]。\n3.  **affaan-m/ECC**：新增6865个星标，这是一个代理驾驭性能优化系统，为Claude Code、Cursor等AI工具提供技能、本能、记忆和安全研究优先的开发能力 [3]。\n4.  **addyosmani/agent-skills**：新增4197个星标，提供面向AI编程代理的生产级工程技能，涵盖从发现到增长的全流程 [3]。\n5.  **JustVugg/colibri**：新增5565个星标，这是一个纯C语言编写的引擎，旨在利用用户现有的硬件运行前沿混合专家（MoE）模型，具备极高的效率 [3]。\n\n*注：证据主要侧重于AI代理和编程自动化领域，未明确列出传统硬件机器人（如机械臂控制）的特定热门仓库，上述结果反映了当前“机器人”话题在AI自动化领域的热度 [1][3]。*",
+  "quality_passed": false,
+  "review": "错误把通用编程代理榜单作为机器人周榜；保留为修复前失败证据。"
+}
